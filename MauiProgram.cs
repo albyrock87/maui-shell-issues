@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DevExpress.Maui;
+using Microsoft.Extensions.Logging;
 
 namespace shell_issues;
 
@@ -9,11 +10,17 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseDevExpress()
+			.UseDevExpressControls()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+#if ANDROID
+			.ConfigureMauiHandlers(h => h.AddHandler<MyLabel, MyLabelHandler>())
+#endif
+			;
 
 #if DEBUG
 		builder.Logging.AddDebug();

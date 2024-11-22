@@ -4,17 +4,23 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:shell_issues"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    Shell.FlyoutBehavior="Flyout"
     Title="shell_issues">
 
-    <TabBar Route="main"
-            Title="Tabs">
-        <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
-                      Title="Home"
-                      Route="Home"/>
-        <ShellContent ContentTemplate="{DataTemplate local:FooPage}"
-                      Title="Foo"
-                      Route="Foo"/>
-    </TabBar>
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout>
+            <local:MyLabel Text="A label in the flyout header" />
+            <dx:DXButton Margin="16" Content="Surprise!" />
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+    
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
+                  Title="Home"
+                  Route="Home"/>
+
+    <ShellContent ContentTemplate="{DataTemplate local:FooPage}"
+                  Title="Foo"
+                  Route="Foo"/>
 
 </Shell>

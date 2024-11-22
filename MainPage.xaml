@@ -1,19 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
              x:Class="shell_issues.MainPage">
 
-    <Grid RowDefinitions="*,350">
-        <ContentView Padding="16,0">
-            <Border BackgroundColor="Gray">
-                <Image
-                    VerticalOptions="Start"
-                    Source="dotnet_bot_vertical.png"
-                    Aspect="AspectFit"
-                    SemanticProperties.Description="dot net bot in a race car number eight" />
-            </Border>
-        </ContentView>
-        <Button Margin="16" Grid.Row="1" Clicked="OnCounterClicked" Text="Nav to //Foo/Bar"/>
-    </Grid>
-
+    <ScrollView>
+        <VerticalStackLayout>
+            <dx:DXButton Margin="16" Content="Tap me to trigger ripple effect" Tap="DXButtonBase_OnTap" />
+            <VerticalStackLayout x:Name="SomeContent" Margin="16" HeightRequest="800" BackgroundColor="SlateBlue" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

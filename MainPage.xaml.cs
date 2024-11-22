@@ -1,4 +1,6 @@
-﻿namespace shell_issues;
+﻿using DevExpress.Maui.Core;
+
+namespace shell_issues;
 
 public partial class MainPage : ContentPage
 {
@@ -26,6 +28,13 @@ public partial class MainPage : ContentPage
 			// Add breakpoint here => not hit
 			Console.WriteLine("Finally");
 		}
+	}
+
+	private void DXButtonBase_OnTap(object? sender, DXTapEventArgs e)
+	{
+		var content = SomeContent;
+		var height = content.Height;
+		content.Animate("height", v => content.HeightRequest = height + 16 * v);
 	}
 }
 

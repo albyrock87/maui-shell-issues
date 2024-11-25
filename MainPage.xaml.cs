@@ -1,40 +1,70 @@
-﻿using DevExpress.Maui.Core;
+﻿using CommunityToolkit.Mvvm.Input;
+using DevExpress.Maui.Controls;
+using DevExpress.Maui.Core;
 
 namespace shell_issues;
 
+class MyPopup : DXPopup
+{
+	public MyPopup()
+	{
+		AllowScrim = true;
+		CloseOnScrimTap = true;
+		ScrimColor = Colors.DarkSlateGray;
+
+		var verticalStackLayout = new VerticalStackLayout
+		{
+			Padding = 24
+		};
+		verticalStackLayout.Add(new Label { Text = "Super!" });
+		verticalStackLayout.Add(new Label { Text = "Super duper popup!" });
+		verticalStackLayout.Add(new HorizontalStackLayout
+		{
+			new DXButton { Content = "A button" },
+			new DXButton { Content = "A second button" },
+		});
+		Content = verticalStackLayout;
+	}
+}
+
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private int _counter;
 
 	public MainPage()
 	{
 		InitializeComponent();
-	}
-
-	private async void OnCounterClicked(object sender, EventArgs e)
-	{
-		var shell = Shell.Current;
-		try
+		foreach (var view in (Layout)Content)
 		{
-			await shell.GoToAsync("//main/Foo/Bar");
-		}
-		catch (Exception ex)
-		{ 
-			// Add breakpoint here => not hit
-			Console.WriteLine(ex.Message);
-		}
-		finally
-		{
-			// Add breakpoint here => not hit
-			Console.WriteLine("Finally");
+			if (view is DXButton button)
+			{
+				button.Command = OpenAndWaitPopupCommand;
+			}
 		}
 	}
 
-	private void DXButtonBase_OnTap(object? sender, DXTapEventArgs e)
+	[RelayCommand]
+	private async Task OpenAndWaitPopup()
 	{
-		var content = SomeContent;
-		var height = content.Height;
-		content.Animate("height", v => content.HeightRequest = height + 16 * v);
+		if (Interlocked.Increment(ref _counter) % 5 != 0)
+		{
+			return;
+		}
+			
+		var p = new MyPopup();
+		var tcs = new TaskCompletionSource();
+		p.ClosingAnimationCompleted += (o, args) =>
+		{
+			Console.WriteLine("ClosingAnimationCompleted");
+			tcs.TrySetResult();
+		};
+
+		Console.WriteLine("Opening");
+		p.Show();
+
+		await tcs.Task;
+
+		Console.WriteLine("Complete");
 	}
 }
 

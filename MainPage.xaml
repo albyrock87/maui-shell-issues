@@ -3,81 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dx="http://schemas.devexpress.com/maui"
              x:Class="shell_issues.MainPage">
-    <Grid RowDefinitions="*,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*,*">
-        <Label Text="Tap very fast number 0: the button should never become disabled forever."
-               Margin="16"
-               Grid.ColumnSpan="3"
-               VerticalOptions="Start"
-               LineBreakMode="WordWrap"/>
+    <VerticalStackLayout>
+        <Label x:Name="ReferenceLbl" Margin="16" />
         <dx:DXButton
-            Grid.Row="1"
-            Grid.Column="0"
+            Clicked="DXButtonBase_OnClicked"
+            Margin="16"
             HeightRequest="80"
             CornerRadius="0"
-            Content="1"
+            Content="Open sub page"
             VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="1"
-            Grid.Column="1"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="2"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="1"
-            Grid.Column="2"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="3"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="2"
-            Grid.Column="0"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="4"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="2"
-            Grid.Column="1"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="5"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="2"
-            Grid.Column="2"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="6"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="3"
-            Grid.Column="0"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="7"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="3"
-            Grid.Column="1"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="8"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="3"
-            Grid.Column="2"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="9"
-            VerticalOptions="End" />
-        <dx:DXButton
-            Grid.Row="4"
-            Grid.Column="1"
-            HeightRequest="80"
-            CornerRadius="0"
-            Content="0"
-            VerticalOptions="End" />
-    </Grid>
+    </VerticalStackLayout>
 </ContentPage>

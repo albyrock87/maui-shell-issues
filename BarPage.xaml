@@ -2,8 +2,18 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="shell_issues.BarPage">
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:shellIssues="clr-namespace:shell_issues"
+             x:Class="shell_issues.BarPage"
+             x:DataType="shellIssues:SampleSingleton">
     <ContentPage.Content>
-        
+        <dx:DXButton
+            x:Name="TheButton"
+            Command="{Binding DumbActionCommand}"
+            Margin="16"
+            HeightRequest="80"
+            CornerRadius="0"
+            Content="A button with a noop command"
+            VerticalOptions="End" />
     </ContentPage.Content>
 </ContentPage>

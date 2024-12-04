@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using DevExpress.Maui.Controls;
 using DevExpress.Maui.Core;
 
@@ -29,42 +30,40 @@ class MyPopup : DXPopup
 
 public partial class MainPage : ContentPage
 {
-	private int _counter;
+	public static WeakReference<object>? WeakRef;
 
 	public MainPage()
 	{
 		InitializeComponent();
-		foreach (var view in (Layout)Content)
+		MonitorReferenceAsync();
+	}
+
+	private async void MonitorReferenceAsync()
+	{
+		while (true)
 		{
-			if (view is DXButton button)
+			await Task.Delay(1000);
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+			await Task.Yield();
+			object? obj = null;
+			var isAlive = WeakRef?.TryGetTarget(out obj) == true;
+			ReferenceLbl.Text = isAlive
+				? $"Reference is alive: {obj}"
+				: "No reference is alive";
+
+			if (obj is Element element)
 			{
-				button.Command = OpenAndWaitPopupCommand;
+				// Try to disconnect the handler to see if that solves the issue
+				// Still, I think that the platform view should hold a weak reference to the command(connector)
+				element.Handler?.DisconnectHandler();
 			}
 		}
 	}
 
-	[RelayCommand]
-	private async Task OpenAndWaitPopup()
+	private void DXButtonBase_OnClicked(object? sender, EventArgs e)
 	{
-		if (Interlocked.Increment(ref _counter) % 5 != 0)
-		{
-			return;
-		}
-			
-		var p = new MyPopup();
-		var tcs = new TaskCompletionSource();
-		p.ClosingAnimationCompleted += (o, args) =>
-		{
-			Console.WriteLine("ClosingAnimationCompleted");
-			tcs.TrySetResult();
-		};
-
-		Console.WriteLine("Opening");
-		p.Show();
-
-		await tcs.Task;
-
-		Console.WriteLine("Complete");
+		Shell.Current.GoToAsync("Bar");
 	}
 }
 

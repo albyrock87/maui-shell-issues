@@ -1,32 +1,7 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
-using DevExpress.Maui.Controls;
-using DevExpress.Maui.Core;
 
 namespace shell_issues;
-
-class MyPopup : DXPopup
-{
-	public MyPopup()
-	{
-		AllowScrim = true;
-		CloseOnScrimTap = true;
-		ScrimColor = Colors.DarkSlateGray;
-
-		var verticalStackLayout = new VerticalStackLayout
-		{
-			Padding = 24
-		};
-		verticalStackLayout.Add(new Label { Text = "Super!" });
-		verticalStackLayout.Add(new Label { Text = "Super duper popup!" });
-		verticalStackLayout.Add(new HorizontalStackLayout
-		{
-			new DXButton { Content = "A button" },
-			new DXButton { Content = "A second button" },
-		});
-		Content = verticalStackLayout;
-	}
-}
 
 public partial class MainPage : ContentPage
 {
@@ -61,7 +36,7 @@ public partial class MainPage : ContentPage
 		}
 	}
 
-	private void DXButtonBase_OnClicked(object? sender, EventArgs e)
+	private void OnClicked(object? sender, EventArgs e)
 	{
 		Shell.Current.GoToAsync("Bar");
 	}

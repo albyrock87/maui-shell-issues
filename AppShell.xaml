@@ -4,14 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:shell_issues"
-    xmlns:dx="http://schemas.devexpress.com/maui"
     Shell.FlyoutBehavior="Flyout"
     Title="shell_issues">
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
             <local:MyLabel Text="A label in the flyout header" />
-            <dx:DXButton Margin="16" Content="Surprise!" />
         </VerticalStackLayout>
     </Shell.FlyoutHeader>
     

@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dx="http://schemas.devexpress.com/maui"
              x:Class="shell_issues.MainPage">
     <VerticalStackLayout>
         <Label x:Name="ReferenceLbl" Margin="16" />
-        <dx:DXButton
-            Clicked="DXButtonBase_OnClicked"
+        <Button
+            Clicked="OnClicked"
             Margin="16"
             HeightRequest="80"
             CornerRadius="0"
-            Content="Open sub page"
+            Text="Open sub page"
             VerticalOptions="End" />
     </VerticalStackLayout>
 </ContentPage>
